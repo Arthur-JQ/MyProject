@@ -17,12 +17,17 @@
         </div>
         <div class="menu">
             <a href="">О нас</a>
+
             <a href="{% url 'contact' %}">Контакты</a>
             <a href="{% url 'catalog' %}">Каталог</a>
         </div>
         <div class="auth">
-            <a href="">Регистрация</a>
-            <a href="">Авторизация</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Выйти</a>
+            {% else %}
+            <a href= "{% url 'register' %}">Регистрация</a>
+            <a href="{% url 'login' %}">Авторизация</a>
+            {% endif %}
         </div>
     </header>
     <main>

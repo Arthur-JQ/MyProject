@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from django.urls import path
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from .models import Food, Image
 def index(request):
     foods = Food.objects.all()
@@ -23,6 +25,23 @@ def create(request):
 def contact (request):
     return render(request, 'contact.html')
 
+
+
 def update(request, id):
     food = Food.objects.get(id=id)
     return render(request, 'update.html', {'food': food})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')  # Убедитесь, что 'home' существует
+        else:
+            # Форма не валидна - будет показана с ошибками
+            print("Form errors:", form.errors)
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'registration/register.html', {'form': form})

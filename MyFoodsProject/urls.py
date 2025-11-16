@@ -22,5 +22,5 @@ from Foods import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('foods/', include('Foods.urls')),
+    path('', include('Foods.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
