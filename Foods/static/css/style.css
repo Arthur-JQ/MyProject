@@ -4,6 +4,10 @@
     align-items: center;
     flex-wrap: wrap;
 }
+
+* {
+    color: red;
+}
 .container {
     max-width: 1440px;
     width: 100%;
