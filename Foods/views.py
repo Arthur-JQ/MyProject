@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from .models import Food, Image
+
+
 def index(request):
     foods = Food.objects.all()
     return render(request, 'index.html', {'foods': foods})
@@ -11,6 +13,7 @@ def index(request):
 
 def catalog(request):
     return render(request, 'catalog.html')
+
 
 def create(request):
     if request.method == 'POST':
@@ -49,3 +52,7 @@ def logout(request):
     
     logout(request)
     return redirect('home')
+
+
+def profile(request, id):
+    return render(request, 'profile.html')
