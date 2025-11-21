@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.urls import path
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from .models import Food, Image
 def index(request):
     foods = Food.objects.all()
@@ -25,8 +26,6 @@ def create(request):
 def contact (request):
     return render(request, 'contact.html')
 
-
-
 def update(request, id):
     food = Food.objects.get(id=id)
     return render(request, 'update.html', {'food': food})
@@ -45,3 +44,8 @@ def register(request):
         form = UserCreationForm()
     
     return render(request, 'registration/register.html', {'form': form})
+
+def logout(request):
+    
+    logout(request)
+    return redirect('home')
