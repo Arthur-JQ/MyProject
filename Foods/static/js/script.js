@@ -1,26 +1,49 @@
-document.querySelectorAll('.quantity').forEach(counter => {
+document.querySelectorAll('.quantity').forEach((counter, index) => {
   const input = counter.querySelector('.quantity__input');
-  const sum = counter.querySelector('.sum');
   const minus = counter.querySelector('.quantity__btn--minus');
   const plus = counter.querySelector('.quantity__btn--plus');
-  let price = counter.querySelector('.food-card__price').textContent;
-  let count = 0;
+  const sum = counter.querySelector('.sum');
+  const name = counter.querySelector('.food-card__name').textContent.trim();
+  const price = Number(counter.querySelector('.food-card__price').textContent);
+
+  const storageKey = `card-${index}`;
+
+  // Загружаем данные из localStorage или создаём новые
+  let item = JSON.parse(localStorage.getItem(storageKey)) || {
+    id: index,
+    name,
+    price,
+    count: Number(input.value) || 1,
+  };
+
+  // Синхронизируем UI с данными
+  input.value = item.count;
+  sum.textContent = item.count * item.price;
+  if (item.count > 1) {
+    minus.classList.remove('min');
+  }
+
+  const saveToStorage = () => {
+    localStorage.setItem(storageKey, JSON.stringify(item));
+  };
+
   plus.addEventListener('click', () => {
-    let value = parseInt(input.value);
-    input.value = ++value;
-    count++
-    console.log( Number(input.value), Number(price) );
-    sum.textContent = Number(input.value) * Number(price);
-    if (value > 1) minus.classList.remove('min');
+    item.count++;
+    input.value = item.count;
+    sum.textContent = item.count * item.price;
+    minus.classList.remove('min');
+    saveToStorage();
   });
+
   minus.addEventListener('click', () => {
-    
-    sum.textContent = Number(input.value) * Number(price);
-    let value = parseInt(input.value);
-    count--
-    if (value > 1) {
-      input.value = --value;
-      if (value === 1) minus.classList.add('min');
+    if (item.count > 1) {
+      item.count--;
+      input.value = item.count;
+      sum.textContent = item.count * item.price;
+      if (item.count === 1) {
+        minus.classList.add('min');
+      }
+      saveToStorage();
     }
   });
 });

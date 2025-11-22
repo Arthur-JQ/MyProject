@@ -1,5 +1,114 @@
 {% extends 'base.html' %}
 
 {% block content %}
- 
+<div class="favorite-page">
+    <div class="favorite-card">
+        <h2 class="favorite-card__title">Избранное</h2>
+        <p class="favorite-card__subtitle">
+            Здесь отображаются товары, сохранённые в localStorage.
+        </p>
+
+        <div class="favorite-card__body">
+            <!-- Сообщение, когда ничего нет -->
+            <div class="favorite-empty" id="favorite-empty">
+                Пока тут пусто 🙈<br>
+                Добавь что-нибудь в избранное на странице меню.
+            </div>
+
+            <!-- Таблица с данными -->
+            <table class="favorite-table" id="favorite-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody id="favorite-body">
+                    {# строки будут добавляться через JS #}
+                </tbody>
+            </table>
+
+            <nav class="as">
+                <ul>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                </ul>
+            </nav>
+
+        
+
+            <!-- Блок Итого -->
+            <div class="favorite-total" id="favorite-total">
+                <span class="favorite-total__label">Итого:</span>
+                <span class="favorite-total__value" id="favorite-total-value">0 ₽</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Контейнер страницы */
+   
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const table = document.getElementById('favorite-table');
+        const tbody = document.getElementById('favorite-body');
+        const emptyBlock = document.getElementById('favorite-empty');
+        const totalBlock = document.getElementById('favorite-total');
+        const totalValue = document.getElementById('favorite-total-value');
+
+        const keys = Object.keys(localStorage);
+        let hasRows = false;
+        let grandTotal = 0;
+
+        for (const key of keys) {
+            let data;
+            try {
+                data = JSON.parse(localStorage.getItem(key));
+            } catch (e) {
+                continue; // если значение не JSON — пропускаем
+            }
+
+            // Ожидаем объект формата {id, name, price, count}
+            if (!data || typeof data !== 'object') continue;
+            if (!('name' in data) || !('price' in data) || !('count' in data)) continue;
+
+            const id = data.id ?? key;
+            const name = data.name;
+            const price = Number(data.price) || 0;
+            const count = Number(data.count) || 1;
+            const total = price * count;
+            grandTotal += total;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${id}</td>
+                <td>${name}</td>
+                <td>${price.toLocaleString('ru-RU')} ₽</td>
+                <td>${count}</td>
+                <td>${total.toLocaleString('ru-RU')} ₽</td>
+            `;
+            tbody.appendChild(tr);
+            hasRows = true;
+        }
+
+        if (hasRows) {
+            emptyBlock.style.display = 'none';
+            table.style.display = 'table';
+
+            totalBlock.style.display = 'flex';
+            totalValue.textContent = grandTotal.toLocaleString('ru-RU') + ' ₽';
+        } else {
+            emptyBlock.style.display = 'block';
+            table.style.display = 'none';
+            totalBlock.style.display = 'none';
+        }
+    });
+</script>
 {% endblock %}
