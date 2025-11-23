@@ -8,7 +8,9 @@
             <div class="food-card__gallery">
                 {% for img in i.image_set.all %}
                 <div class="food-card__image-wrapper">
-                    <img class="food-card__image" src="{{ img.image.url }}" alt="{{ img.name }}">
+                    <a href="{% url 'update' i.id %}" class="">
+                        <img class="food-card__image" src="{{ img.image.url }}" alt="{{ img.name }}">
+                    </a>
                 </div>
                 {% endfor %}
             </div>
@@ -22,15 +24,9 @@
                         <input class="quantity__input" type="text" value="1" readonly>
                         <button class="quantity__btn quantity__btn--plus" type="button" aria-label="Увеличить">+</button>
                     </div>
-                    <span class="sum"></span>
+                  
                 </div>
             </div>
-            <!-- <a href="{% url 'update' i.id %}" class="food-card__btn">
-                Подробнее
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-            </a> -->
         </div>
         {% endfor %}
     </div>

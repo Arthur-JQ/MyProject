@@ -2,7 +2,6 @@ document.querySelectorAll('.quantity').forEach((counter, index) => {
   const input = counter.querySelector('.quantity__input');
   const minus = counter.querySelector('.quantity__btn--minus');
   const plus = counter.querySelector('.quantity__btn--plus');
-  const sum = counter.querySelector('.sum');
   const name = counter.querySelector('.food-card__name').textContent.trim();
   const price = Number(counter.querySelector('.food-card__price').textContent);
 
@@ -18,7 +17,6 @@ document.querySelectorAll('.quantity').forEach((counter, index) => {
 
   // Синхронизируем UI с данными
   input.value = item.count;
-  sum.textContent = item.count * item.price;
   if (item.count > 1) {
     minus.classList.remove('min');
   }
@@ -30,7 +28,6 @@ document.querySelectorAll('.quantity').forEach((counter, index) => {
   plus.addEventListener('click', () => {
     item.count++;
     input.value = item.count;
-    sum.textContent = item.count * item.price;
     minus.classList.remove('min');
     saveToStorage();
   });
@@ -39,7 +36,6 @@ document.querySelectorAll('.quantity').forEach((counter, index) => {
     if (item.count > 1) {
       item.count--;
       input.value = item.count;
-      sum.textContent = item.count * item.price;
       if (item.count === 1) {
         minus.classList.add('min');
       }
@@ -47,3 +43,24 @@ document.querySelectorAll('.quantity').forEach((counter, index) => {
     }
   });
 });
+
+let all = document.querySelectorAll('*');
+let but = document.querySelector('.but');
+
+but.addEventListener('click', () => {
+  if(but.textContent == 'Светлая тема') { 
+    for(let item of all) {
+      but.textContent = 'Темная тема';
+      item.style.color = 'white';
+      if(item.classList.contains('food-card')) { 
+        item.style.backgroundColor = 'black';
+      }
+      document.body.style.backgroundColor = 'black';
+    } } else {
+    for(let item of all) {
+      but.textContent = 'Светлая тема';
+      item.style.color = 'black';
+      document.body.style.backgroundColor = 'white';
+    }
+  }
+})
