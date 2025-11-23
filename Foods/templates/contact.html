@@ -1,471 +1,493 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
 
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --accent: #f72585;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --gray: #6c757d;
-            --success: #4cc9f0;
-            --border: #e9ecef;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    :root {
+        --primary: #4361ee;
+        --secondary: #3a0ca3;
+        --accent: #f72585;
+        --light: #f8f9fa;
+        --dark: #212529;
+        --gray: #6c757d;
+        --success: #4cc9f0;
+        --border: #e9ecef;
+    }
 
-    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
 
-        .search-bar button {
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 0 20px;
-            border-radius: 0 30px 30px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
 
-        .search-bar button:hover {
-            background: #d9046d;
-        }
 
-        .user-actions {
-            display: flex;
-            gap: 20px;
-        }
+    .search-bar button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 0 20px;
+        border-radius: 0 30px 30px 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
 
-        .user-actions a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s ease;
-        }
+    .search-bar button:hover {
+        background: #d9046d;
+    }
 
-        .user-actions a:hover {
-            color: var(--accent);
-        }
+    .user-actions {
+        display: flex;
+        gap: 20px;
+    }
 
-        /* Main Content */
+    .user-actions a {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.3s ease;
+    }
+
+    .user-actions a:hover {
+        color: var(--accent);
+    }
+
+    /* Main Content */
+    .main-content {
+        display: flex;
+        margin: 30px 0;
+        gap: 30px;
+    }
+
+    /* Filters Sidebar */
+    .filters {
+        width: 250px;
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        height: fit-content;
+    }
+
+    .filter-section {
+        margin-bottom: 25px;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 20px;
+    }
+
+    .filter-section:last-child {
+        border-bottom: none;
+    }
+
+    .filter-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .filter-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .filter-option input {
+        accent-color: var(--primary);
+    }
+
+    .price-range {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .price-inputs {
+        display: flex;
+        gap: 10px;
+    }
+
+    .price-inputs input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid var(--border);
+        border-radius: 5px;
+    }
+
+    .color-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .color-option {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .color-option.active {
+        border-color: var(--dark);
+    }
+
+    .color-red {
+        background-color: #e63946;
+    }
+
+    .color-blue {
+        background-color: #457b9d;
+    }
+
+    .color-green {
+        background-color: #2a9d8f;
+    }
+
+    .color-black {
+        background-color: #264653;
+    }
+
+    .color-white {
+        background-color: #f1faee;
+        border: 1px solid #ddd;
+    }
+
+    .color-yellow {
+        background-color: #e9c46a;
+    }
+
+    .filter-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 100%;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover {
+        background: var(--secondary);
+    }
+
+    /* Products Grid */
+    .products {
+        flex: 1;
+    }
+
+    .products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .products-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .sort-options select {
+        padding: 8px 15px;
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        background: white;
+        cursor: pointer;
+    }
+
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+    }
+
+    .product-card {
+        background: white;
+        height: 380px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .product-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: var(--accent);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-category {
+        color: var(--gray);
+        font-size: 0.8rem;
+        margin-bottom: 5px;
+    }
+
+    .product-name {
+        font-weight: 600;
+        margin-bottom: 10px;
+        height: 40px;
+        overflow: hidden;
+    }
+
+    .product-rating {
+        color: #ffc107;
+        margin-bottom: 10px;
+    }
+
+    .product-price {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .current-price {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--primary);
+    }
+
+    .original-price {
+        text-decoration: line-through;
+        color: var(--gray);
+    }
+
+    .discount {
+        color: var(--accent);
+        font-weight: 600;
+    }
+
+    .add-to-cart {
+        background: var(--primary);
+        color: white;
+        border: none;
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .add-to-cart:hover {
+        background: var(--secondary);
+    }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+        gap: 10px;
+    }
+
+    .pagination button {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid var(--border);
+        background: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .pagination button.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+    }
+
+    .pagination button:hover:not(.active) {
+        background: #f0f0f0;
+    }
+
+    /* Footer */
+    footer {
+        background: var(--dark);
+        color: white;
+        padding: 40px 0 20px;
+        margin-top: 50px;
+    }
+
+    footer {
+        width: 100%;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+    }
+
+    .footer-column h3 {
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 3px;
+        background: var(--accent);
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: 10px;
+    }
+
+    .footer-links a {
+        color: #adb5bd;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: white;
+        padding-left: 5px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .social-links a {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+        background: var(--accent);
+        transform: translateY(-3px);
+    }
+
+    .copyright {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #adb5bd;
+        font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
         .main-content {
-            display: flex;
-            margin: 30px 0;
-            gap: 30px;
+            flex-direction: column;
         }
 
-        /* Filters Sidebar */
         .filters {
-            width: 250px;
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            height: fit-content;
-        }
-
-        .filter-section {
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 20px;
-        }
-
-        .filter-section:last-child {
-            border-bottom: none;
-        }
-
-        .filter-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .filter-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .filter-option input {
-            accent-color: var(--primary);
-        }
-
-        .price-range {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .price-inputs {
-            display: flex;
-            gap: 10px;
-        }
-
-        .price-inputs input {
             width: 100%;
-            padding: 8px;
-            border: 1px solid var(--border);
-            border-radius: 5px;
         }
 
-        .color-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        .footer-content {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header-content {
+            flex-direction: column;
+            gap: 15px;
         }
 
-        .color-option {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .color-option.active {
-            border-color: var(--dark);
-        }
-
-        .color-red { background-color: #e63946; }
-        .color-blue { background-color: #457b9d; }
-        .color-green { background-color: #2a9d8f; }
-        .color-black { background-color: #264653; }
-        .color-white { background-color: #f1faee; border: 1px solid #ddd; }
-        .color-yellow { background-color: #e9c46a; }
-
-        .filter-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+        .search-bar {
             width: 100%;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover {
-            background: var(--secondary);
-        }
-
-        /* Products Grid */
-        .products {
-            flex: 1;
-        }
-
-        .products-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .products-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .sort-options select {
-            padding: 8px 15px;
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            background: white;
-            cursor: pointer;
         }
 
         .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         }
 
-        .product-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .product-image {
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--accent);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .product-info {
-            padding: 15px;
-        }
-
-        .product-category {
-            color: var(--gray);
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-        }
-
-        .product-name {
-            font-weight: 600;
-            margin-bottom: 10px;
-            height: 40px;
-            overflow: hidden;
-        }
-
-        .product-rating {
-            color: #ffc107;
-            margin-bottom: 10px;
-        }
-
-        .product-price {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .current-price {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--primary);
-        }
-
-        .original-price {
-            text-decoration: line-through;
-            color: var(--gray);
-        }
-
-        .discount {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .add-to-cart {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .add-to-cart:hover {
-            background: var(--secondary);
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-            gap: 10px;
-        }
-
-        .pagination button {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid var(--border);
-            background: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .pagination button.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .pagination button:hover:not(.active) {
-            background: #f0f0f0;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 40px 0 20px;
-            margin-top: 50px;
-        }
-        footer {
-            width: 100%;
-        }
         .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .products-grid {
+            grid-template-columns: 1fr 1fr;
         }
 
-        .footer-column h3 {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--accent);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #adb5bd;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
+        .products-header {
+            flex-direction: column;
+            align-items: flex-start;
             gap: 15px;
-            margin-top: 20px;
         }
-
-        .social-links a {
-            color: white;
-            background: rgba(255, 255, 255, 0.1);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #adb5bd;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .filters {
-                width: 100%;
-            }
-            
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .search-bar {
-                width: 100%;
-            }
-            
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .products-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            
-            .products-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
+
 <body>
     <!-- Header -->
-  
+
 
     <!-- Main Content -->
     <div class="container">
@@ -591,203 +613,36 @@
                 </div>
 
                 <div class="products-grid">
-                    <!-- Product 1 -->
+                    {% for i in foods %}
                     <div class="product-card">
+                        {% if i.sale > 0 %}
                         <div class="product-badge">Новинка</div>
-                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Футболка" class="product-image">
-                        <div class="product-info">
-                            <div class="product-category">Одежда</div>
-                            <h3 class="product-name">Футболка с принтом</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>(128)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">1 499 ₽</span>
-                                <span class="original-price">2 199 ₽</span>
-                                <span class="discount">-32%</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i> В корзину
-                            </button>
+                        
+                        {% endif %}
+                        {% for img in i.image_set.all %}
+                        {% if forloop.counter == 1 %}
+                        <img src="{{ img.image.url }}" alt="Футболка" class="product-image">
+                        {% endif %}
+                        {% endfor %}
+                        <h3 class="product-title">{{ i.name }}</h3>
+                        <p class="product-description">{{ i.description }}</p>
+                        <div class="product-price">{{ i.price }}</div>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
                         </div>
-                    </div>
-
-                    <!-- Product 2 -->
-                    <div class="product-card">
-                        <div class="product-badge">Хит продаж</div>
-                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Кроссовки" class="product-image">
-                        <div class="product-info">
-                            <div class="product-category">Обувь</div>
-                            <h3 class="product-name">Кроссовки спортивные</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>(256)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">4 999 ₽</span>
-                                <span class="original-price">6 499 ₽</span>
-                                <span class="discount">-23%</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i> В корзину
-                            </button>
+                        <div class="product-price">
+                            <span class="current-price">{{ i.price }}</span>
+                            <span class="original-price">2 199 ₽</span>
+                            <span class="discount">-32%</span>
                         </div>
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> В корзину
+                        </button>
                     </div>
-
-                    <!-- Product 3 -->
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Сумка" class="product-image">
-                        <div class="product-info">
-                            <div class="product-category">Аксессуары</div>
-                            <h3 class="product-name">Сумка через плечо</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <span>(87)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">2 799 ₽</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i> В корзину
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product 4 -->
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Наушники" class="product-image">
-                        <div class="product-info">
-                            <div class="product-category">Электроника</div>
-                            <h3 class="product-name">Беспроводные наушники</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>(312)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">5 499 ₽</span>
-                                <span class="original-price">7 999 ₽</span>
-                                <span class="discount">-31%</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i> В корзину
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product 5 -->
-                    <div class="product-card">
-                        <div class="product-badge">Акция</div>
-                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Джинсы" class="product-image">
-                        <div class="product-info">
-                            <div class="product-category">Одежда</div>
-                            <h3 class="product-name">Скинни джинсы</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <span>(143)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">3 299 ₽</span>
-                                <span class="original-price">4 599 ₽</span>
-                                <span class="discount">-28%</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i> В корзину
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product 6 -->
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Часы" class="product-image">
-                        <div class="product-info">
-                            <div class="product-category">Аксессуары</div>
-                            <h3 class="product-name">Часы наручные</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span>(94)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">8 999 ₽</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i> В корзину
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product 7 -->
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Крем" class="product-image">
-                        <div class="product-info">
-                            <div class="product-category">Красота</div>
-                            <h3 class="product-name">Увлажняющий крем</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span>(201)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">1 299 ₽</span>
-                                <span class="original-price">1 899 ₽</span>
-                                <span class="discount">-32%</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i> В корзину
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Product 8 -->
-                    <div class="product-card">
-                        <div class="product-badge">Limited</div>
-                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Куртка" class="product-image">
-                        <div class="product-info">
-                            <div class="product-category">Одежда</div>
-                            <h3 class="product-name">Куртка джинсовая</h3>
-                            <div class="product-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                                <span>(76)</span>
-                            </div>
-                            <div class="product-price">
-                                <span class="current-price">6 499 ₽</span>
-                            </div>
-                            <button class="add-to-cart">
-                                <i class="fas fa-shopping-cart"></i> В корзину
-                            </button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
 
                 <!-- Pagination -->
@@ -810,7 +665,8 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>О компании</h3>
-                    <p>StyleShop - это современный интернет-магазин модной одежды, обуви и аксессуаров. Мы предлагаем качественные товары по доступным ценам.</p>
+                    <p>StyleShop - это современный интернет-магазин модной одежды, обуви и аксессуаров. Мы предлагаем
+                        качественные товары по доступным ценам.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-vk"></i></a>
                         <a href="#"><i class="fab fa-telegram"></i></a>
@@ -856,11 +712,11 @@
 
     <script>
         // JavaScript для интерактивности
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Переключение активного состояния цветов
             const colorOptions = document.querySelectorAll('.color-option');
             colorOptions.forEach(option => {
-                option.addEventListener('click', function() {
+                option.addEventListener('click', function () {
                     colorOptions.forEach(opt => opt.classList.remove('active'));
                     this.classList.add('active');
                 });
@@ -869,18 +725,18 @@
             // Добавление товара в корзину
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
             addToCartButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     const productName = this.closest('.product-card').querySelector('.product-name').textContent;
-                    
+
                     // Анимация кнопки
                     this.innerHTML = '<i class="fas fa-check"></i> Добавлено';
                     this.style.backgroundColor = '#28a745';
-                    
+
                     setTimeout(() => {
                         this.innerHTML = '<i class="fas fa-shopping-cart"></i> В корзину';
-                        this.style.backgroundColor = '';
+                        this.style.backgroundColor = 'red';
                     }, 2000);
-                    
+
                     // Уведомление
                     alert(`Товар "${productName}" добавлен в корзину!`);
                 });
@@ -888,7 +744,7 @@
 
             // Фильтрация товаров
             const filterBtn = document.querySelector('.filter-btn');
-            filterBtn.addEventListener('click', function() {
+            filterBtn.addEventListener('click', function () {
                 // Здесь должна быть логика фильтрации
                 alert('Фильтры применены!');
             });
@@ -896,7 +752,7 @@
             // Пагинация
             const paginationButtons = document.querySelectorAll('.pagination button');
             paginationButtons.forEach(button => {
-                button.addEventListener('click', function() {
+                button.addEventListener('click', function () {
                     if (!this.querySelector('i')) {
                         paginationButtons.forEach(btn => btn.classList.remove('active'));
                         this.classList.add('active');
@@ -905,7 +761,6 @@
             });
         });
     </script>
-</body>
-</html>
 
-{% endblock %}
+
+    {% endblock %}

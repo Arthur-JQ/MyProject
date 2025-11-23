@@ -27,7 +27,9 @@ def create(request):
         return render(request, 'create.html')
 
 def contact (request):
-    return render(request, 'contact.html')
+    foods = Food.objects.all()
+    print(foods.all())
+    return render(request, 'contact.html', {'foods': foods})
 
 def update(request, id):
     food = Food.objects.get(id=id)
@@ -41,7 +43,6 @@ def register(request):
             login(request, user)
             return redirect('home')  # Убедитесь, что 'home' существует
         else:
-            # Форма не валидна - будет показана с ошибками
             print("Form errors:", form.errors)
     else:
         form = UserCreationForm()
@@ -49,7 +50,6 @@ def register(request):
     return render(request, 'registration/register.html', {'form': form})
 
 def logout(request):
-    
     logout(request)
     return redirect('home')
 

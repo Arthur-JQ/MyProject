@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Food(models.Model):
     name = models.CharField(max_length=100, null=True)
+    sale = models.IntegerField(max_length=100, null=True, db_column='Скидка' )
     description = models.TextField(null=True, default='Описание')
     price = models.DecimalField(max_digits=5, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
