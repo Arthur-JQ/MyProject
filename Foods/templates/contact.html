@@ -497,26 +497,12 @@
                 <div class="filter-section">
                     <h3 class="filter-title">Категории</h3>
                     <div class="filter-options">
+                        {% for i in category %}
                         <label class="filter-option">
-                            <input type="checkbox" checked>
-                            <span>Одежда</span>
+                            <input name="food" type="checkbox" checked>
+                            <span>{{ i.name }}</span>
                         </label>
-                        <label class="filter-option">
-                            <input type="checkbox">
-                            <span>Обувь</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox">
-                            <span>Аксессуары</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox">
-                            <span>Электроника</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox">
-                            <span>Красота</span>
-                        </label>
+                        {% endfor %}
                     </div>
                 </div>
 
@@ -568,9 +554,8 @@
                     </div>
                 </div>
 
-              
 
-                <button class="filter-btn">Применить фильтры</button>
+                <input type="submit">
             </aside>
 
             <!-- Products Grid -->
@@ -592,7 +577,7 @@
                     {% for i in foods %}
                     <div class="product-card">
                         {% if i.sale %}
-                            <div class="product-badge">Новинка</div>
+                        <div class="product-badge">Новинка</div>
                         {% endif %}
                         {% for img in i.image_set.all %}
                         {% if forloop.counter == 1 %}
@@ -720,8 +705,7 @@
             // Фильтрация товаров
             const filterBtn = document.querySelector('.filter-btn');
             filterBtn.addEventListener('click', function () {
-                // Здесь должна быть логика фильтрации
-                alert('Фильтры применены!');
+
             });
 
             // Пагинация

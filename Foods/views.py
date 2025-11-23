@@ -3,7 +3,7 @@ from django.urls import path
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth import logout
-from .models import Food, Image
+from .models import Food, Image, Category
 
 
 def index(request):
@@ -27,9 +27,12 @@ def create(request):
         return render(request, 'create.html')
 
 def contact (request):
+    category = Category.objects.all()
     foods = Food.objects.all()
-    print(foods.all())
-    return render(request, 'contact.html', {'foods': foods})
+
+    if request.method == 'GET':
+        print(request.GET)
+    return render(request, 'contact.html', {'foods': foods, 'category': category})
 
 def update(request, id):
     food = Food.objects.get(id=id)
