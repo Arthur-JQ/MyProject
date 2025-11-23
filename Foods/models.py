@@ -1,8 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=100, null=True)
+    description = models.TextField(null=True, default='Описание')
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
+
 class Food(models.Model):
     name = models.CharField(max_length=100, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     sale = models.IntegerField(max_length=100, null=True, db_column='Скидка' )
     description = models.TextField(null=True, default='Описание')
     price = models.DecimalField(max_digits=5, decimal_places=2)

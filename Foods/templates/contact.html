@@ -568,31 +568,7 @@
                     </div>
                 </div>
 
-                <div class="filter-section">
-                    <h3 class="filter-title">Размер</h3>
-                    <div class="filter-options">
-                        <label class="filter-option">
-                            <input type="checkbox">
-                            <span>XS</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" checked>
-                            <span>S</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox" checked>
-                            <span>M</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox">
-                            <span>L</span>
-                        </label>
-                        <label class="filter-option">
-                            <input type="checkbox">
-                            <span>XL</span>
-                        </label>
-                    </div>
-                </div>
+              
 
                 <button class="filter-btn">Применить фильтры</button>
             </aside>
@@ -615,9 +591,8 @@
                 <div class="products-grid">
                     {% for i in foods %}
                     <div class="product-card">
-                        {% if i.sale > 0 %}
-                        <div class="product-badge">Новинка</div>
-                        
+                        {% if i.sale %}
+                            <div class="product-badge">Новинка</div>
                         {% endif %}
                         {% for img in i.image_set.all %}
                         {% if forloop.counter == 1 %}
